@@ -70,7 +70,71 @@ COPY ./odoo.conf /etc/odoo/
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
-    && chown -R odoo /mnt/extra-addons
+    && mkdir -p /mnt/extra-addons/oca \
+    && chown -R odoo /mnt/extra-addons\
+    && chown -R odoo /mnt/extra-addons/oca
+
+# Con lo siguiente, cambiamos al usuario odoo y el path donde ejecuta los
+# comandos que se indiquen después.
+# Odoo Community Association repositories
+WORKDIR /mnt/extra-addons/oca
+RUN git clone --branch 15.0 --depth 1 https://github.com/oca/account-analytic.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-budgeting.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-closing.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-consolidation.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-invoice-reporting.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-invoicing.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-financial-reporting.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-financial-tools.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-fiscal-rule.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/account-payment.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/bank-payment.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/bank-statement-import.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/bank-statement-reconcile.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/commission.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/community-data-files.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/connector-telephony.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/contract.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/crm.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/data-protection.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/e-commerce.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/event.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/hr.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/hr-timesheet.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/intrastat.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/knowledge.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/l10n-spain.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/management-system.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/manufacture.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/manufacture-reporting.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/margin-analysis.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/operating-unit.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/partner-contact.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/pos.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/product-attribute.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/product-variant.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/project.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/project-reporting.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/purchase-reporting.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/purchase-workflow.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/reporting-engine.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/rma.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/sale-financial.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/sale-reporting.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/sale-workflow.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/server-tools.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/server-ux.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/social.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/stock-logistics-barcode.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/stock-logistics-tracking.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/stock-logistics-transport.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/stock-logistics-warehouse.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/stock-logistics-workflow.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/web.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/website.git; \
+    git clone --branch 15.0 --depth 1 https://github.com/oca/website-cms.git;
+
+
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
 # Expose Odoo services
